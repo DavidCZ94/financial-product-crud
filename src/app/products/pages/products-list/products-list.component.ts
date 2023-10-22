@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { Product } from 'src/app/core/interfaces/product.interface';
-import { TableConfig } from 'src/app/core/interfaces/table-config.interface';
+import { Pagination, TableConfig } from 'src/app/core/interfaces/table-config.interface';
 import { ProductsService } from 'src/app/core/services/products.service';
 
 @Component({
@@ -13,9 +13,10 @@ import { ProductsService } from 'src/app/core/services/products.service';
 export class ProductsListComponent {
 
   tableConfig!: TableConfig;
-  producs: Product[] = [];
+  products: Product[] = [];
+  pagedProducts: Product[] = [];
   searchControl = new FormControl('');
-  searchResults: any[] = [];
+  searchedProducts: Product[] = [];
 
   constructor(
     private productsService: ProductsService
@@ -28,8 +29,9 @@ export class ProductsListComponent {
   getAllProducts(): void {
     this.productsService.getProducts().subscribe({
       next: (products) => {
-        this.producs = products;
-        this.tableConfig.data = products;
+        this.products = products;
+        this.searchedProducts = this.getSearchedProducts('', this.products);
+        this.setDataToShow();
       }
     });
   }
@@ -39,13 +41,11 @@ export class ProductsListComponent {
     .pipe(debounceTime(300))
     .subscribe(
       (searchTerm) => {
-        if (searchTerm) {
-        this.searchResults = this.searchProducts(searchTerm);
-      }else{
-        this.searchResults = this.producs;
+        this.tableConfig.pagination.page = 1;
+        this.searchedProducts = this.getSearchedProducts(searchTerm || '', this.products);
+        this.setDataToShow();
       }
-      this.tableConfig.data = this.searchResults;
-    });
+    );
   }
 
   getTableConfig(): TableConfig {
@@ -59,16 +59,46 @@ export class ProductsListComponent {
       ],
       pagination: {
         page: 1,
-        pageSize: 10,
-        pageOptions: [5, 10, 20]
+        pageSize: 5,
+        pageOptions: [5, 10, 20],
+        totalPages: 0
       }
     }
   }
 
-  searchProducts(searchTerm: string ) : any[] {
-    return this.producs.filter((product) => {
-      return product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    })
+  getSearchedProducts(searchTerm: string, products: Product[] ): Product[] {
+    searchTerm = searchTerm.toLowerCase();
+    return products.filter((product) => {
+      return product.name.toLowerCase().includes(searchTerm);
+    });
+  }
+
+  changePage(page: number): void {
+    this.tableConfig.pagination.page = page;
+    this.setDataToShow();
+  }
+
+  changePageSize(): void {
+    this.tableConfig.pagination.page = 1;
+    this.setDataToShow();
+  }
+
+  setDataToShow(): void {
+    this.tableConfig.pagination.totalPages = this.getTotalPages(this.tableConfig.pagination ,this.searchedProducts);
+    this.pagedProducts = this.updatePagedProducts(this.searchedProducts, this.tableConfig.pagination);
+  }
+
+
+  updatePagedProducts(products: Product [], pagination: Pagination): Product[] {
+    const { pageSize, page } = pagination;
+    const startIndex = (page - 1) * pageSize;
+    return products.slice(startIndex, +startIndex + +pageSize);
+  }
+
+  getTotalPages(paginationConfig: Pagination, products: Product[]): number {
+    const totalItems = products.length; // or this.products.length for all products
+    const pageSize = paginationConfig.pageSize;
+    return Math.ceil(totalItems / pageSize);
   }
 
 }

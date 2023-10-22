@@ -23,8 +23,8 @@
             <th class="table-header-actions"></th>
           </tr>
         </thead>
-        <tbody *ngIf="tableConfig.data">
-          <tr *ngFor="let product of tableConfig.data">
+        <tbody *ngIf="pagedProducts">
+          <tr *ngFor="let product of pagedProducts">
             <td>
               <img width="35" alt="Banco pichincha logo" [src]="product.logo" />
             </td>
@@ -39,14 +39,31 @@
     </div>
     <div class="table-pagination">
       <p class="pagination-counter">
-        {{tableConfig.data?.length || 0}} registros
+        {{pagedProducts.length || 0}} registros
       </p>
-      <select class="pagination-select" name="" id="">
-        <option
-          [value]="size"
-          *ngFor="let size of tableConfig.pagination.pageOptions"
-          >{{size}}</option>
-      </select>
+      <div class="pagination-management">
+        <div>
+          <button
+            [disabled]="tableConfig.pagination.page === 1"
+            (click)="changePage(tableConfig.pagination.page - 1)"
+            class="btn-secondary"><strong><</strong></button>
+        </div>
+        <div>
+          <button class="btn-secondary"><strong>{{tableConfig.pagination.page}}</strong></button>
+        </div>
+        <div>
+          <button
+            [disabled]="tableConfig.pagination.page === tableConfig.pagination.totalPages"
+            (click)="changePage(tableConfig.pagination.page + 1)"
+            class="btn-secondary"><strong>></strong></button>
+        </div>
+        <select (change)="changePageSize()" [(ngModel)]="tableConfig.pagination.pageSize" class="pagination-select" name="" id="">
+          <option
+            [value]="size"
+            *ngFor="let size of tableConfig.pagination.pageOptions"
+            >{{size}}</option>
+        </select>
+      </div>
     </div>
   </div>
 </div>
