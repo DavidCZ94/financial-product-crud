@@ -1,0 +1,41 @@
+<div class="products-list-container">
+  <div class="actions">
+    <input type="search" name="search product" id="" placeholder="Search">
+    <button>Agregar</button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrapper">
+      <table class="table-content">
+        <thead class="table-header">
+          <tr>
+            <th *ngFor="let header of tableConfig.header">{{header}}</th>
+            <th class="table-header-actions"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="tableConfig.data">
+          <tr *ngFor="let product of tableConfig.data">
+            <td>
+              <img width="35" alt="Banco pichincha logo" [src]="product.logo" />
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.date_release }}</td>
+            <td>{{ product.date_revision }}</td>
+            <td class="table-body-actions">...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-pagination">
+      <p class="pagination-counter">
+        5 registros
+      </p>
+      <select class="pagination-select" name="" id="">
+        <option value="">5</option>
+        <option value="">10</option>
+        <option value="">20</option>
+      </select>
+    </div>
+  </div>
+</div>
