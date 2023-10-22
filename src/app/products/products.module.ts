@@ -7,6 +7,7 @@ import { ProductRegistrationComponent } from './pages/product-registration/produ
 import { ProductsService } from '../core/services/products.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
   imports: [
     CommonModule,
     ProductsRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     ProductsService,

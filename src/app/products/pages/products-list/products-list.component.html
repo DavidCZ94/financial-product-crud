@@ -1,7 +1,17 @@
 <div class="products-list-container">
   <div class="actions">
-    <input type="search" name="search product" id="" placeholder="Search">
-    <button>Agregar</button>
+    <div>
+      <input
+        class="search-input"
+        type="search"
+        name="search product"
+        id="searchProduct"
+        placeholder="Search.."
+        [formControl]="searchControl">
+    </div>
+    <div>
+      <button class="btn-primary">Agregar</button>
+    </div>
   </div>
 
   <div class="table-card">
@@ -29,12 +39,13 @@
     </div>
     <div class="table-pagination">
       <p class="pagination-counter">
-        5 registros
+        {{tableConfig.data?.length || 0}} registros
       </p>
       <select class="pagination-select" name="" id="">
-        <option value="">5</option>
-        <option value="">10</option>
-        <option value="">20</option>
+        <option
+          [value]="size"
+          *ngFor="let size of tableConfig.pagination.pageOptions"
+          >{{size}}</option>
       </select>
     </div>
   </div>

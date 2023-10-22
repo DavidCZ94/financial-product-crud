@@ -2,3 +2,22 @@
 body{
   background-color: #f4f6f9;
 }
+
+.btn-primary{
+  background-color: #fddd48;
+  color: #3a4250;
+  border: none;
+  border-radius: 2px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-primary:hover{
+  background-color: #ffe77c;
+}
+
+.btn-primary:active{
+  background-color: #fddd48;
+}
