@@ -98,13 +98,12 @@ export class ProductsListComponent {
   }
 
   getTotalPages(paginationConfig: Pagination, products: Product[]): number {
-    const totalItems = products.length; // or this.products.length for all products
+    const totalItems = products.length;
     const pageSize = paginationConfig.pageSize;
     return Math.ceil(totalItems / pageSize);
   }
 
   reditectToProductRegistration(): void {
-    console.log(`🚀 ~ reditectToProductRegistration:`);
     this.router.navigate(['/products/product-registration']);
   }
 

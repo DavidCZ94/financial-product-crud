@@ -1,0 +1,7 @@
+<div class="error-modal" [ngClass]="{'hidden-modal': !showModal}">
+  <div class="modal-content">
+    <h2>Error</h2>
+    <p>{{errorMessage}}</p>
+    <button class="btn-primary" (click)="closeModal()">Close</button>
+  </div>
+</div>

@@ -53,7 +53,7 @@
         </div>
         <div>
           <button
-            [disabled]="tableConfig.pagination.page === tableConfig.pagination.totalPages"
+            [disabled]="tableConfig.pagination.page === tableConfig.pagination.totalPages || products.length <= 0"
             (click)="changePage(tableConfig.pagination.page + 1)"
             class="btn-secondary"><strong>></strong></button>
         </div>

@@ -8,6 +8,7 @@ import { ProductsService } from '../core/services/products.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorHandlerInterceptor } from '../core/interceptors/error-handler.interceptor';
 
 
 @NgModule({
@@ -27,6 +28,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor, // Add your interceptor
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor, // Add your interceptor
       multi: true
     },
     DatePipe
