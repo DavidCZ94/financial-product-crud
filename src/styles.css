@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body{
   background-color: #f4f6f9;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .btn-primary{
@@ -9,7 +10,8 @@ body{
   border: none;
   border-radius: 2px;
   padding: 0.7rem 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  font-weight: 800;
   width: 100%;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
@@ -22,13 +24,19 @@ body{
   background-color: #fddd48;
 }
 
+.btn-primary:disabled{
+  background-color: #edcd41;
+  color: #3a4250;
+}
+
 .btn-secondary{
-  background-color: #eaecf1;
-  color: #1a2b59;
+  background-color: #e9ecf2;
+  color: #2e426f;
   border: none;
   border-radius: 2px;
   padding: 0.7rem 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  font-weight: 800;
   width: 100%;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

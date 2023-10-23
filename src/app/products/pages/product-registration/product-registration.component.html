@@ -1,1 +1,73 @@
-<p>product-registration works!</p>
+<div class="form-wrapper">
+  <div class="form-card">
+    <h1>Formulario de Registro</h1>
+    <hr>
+    <form [formGroup]="profileForm" (ngSubmit)="submit()">
+
+      <div>
+        <div [ngClass]="{'input-error': !profileForm.get('id')?.valid}" class="form-control">
+          <label for="id">ID </label>
+          <input
+            id="id"
+            type="text"
+            formControlName="id">
+          <p>{{profileForm.get('id')?.valid ? '' : 'ID no valido'}}</p>
+        </div>
+
+        <div [ngClass]="{'input-error': !profileForm.get('description')?.valid}"  class="form-control">
+          <label for="description">Descripciòn</label>
+          <input id="description" type="text" formControlName="description">
+          <p>{{
+            profileForm.get('description')?.valid
+            ? '' : 'Este campo es invalido'
+          }}</p>
+        </div>
+
+        <div [ngClass]="{'input-error': !profileForm.get('date_release')?.valid}"  class="form-control">
+          <label for="date_release">Fecha de liberación</label>
+          <input id="date_release" type="date" formControlName="date_release">
+          <p>{{
+            profileForm.get('date_release')?.valid
+            ? '' : 'Este campo es invalido'
+          }}</p>
+        </div>
+      </div>
+
+      <div>
+        <div [ngClass]="{'input-error': !profileForm.get('name')?.valid}" class="form-control" class="form-control">
+          <label for="name">Nombre</label>
+          <input id="name" type="text" formControlName="name">
+          <p>{{
+            profileForm.get('name')?.valid
+            ? '' : 'Este campo es invalido'
+          }}</p>
+        </div>
+
+
+        <div [ngClass]="{'input-error': !profileForm.get('logo')?.valid}"  class="form-control">
+          <label for="logo">Logo</label>
+          <input id="logo" type="text" formControlName="logo">
+          <p>{{
+            profileForm.get('logo')?.valid
+            ? '' : 'Este campo es invalido'
+          }}</p>
+        </div>
+
+
+        <div class="form-control">
+          <label for="date_revision">Fecha de revision</label>
+          <input id="date_revision" type="date" formControlName="date_revision">
+        </div>
+      </div>
+
+
+      <div class="restart-buton-container">
+        <button class="btn-secondary" [disabled]="!profileForm.dirty" (click)="reset($event)">Reiniciar</button>
+      </div>
+      <div class="submit-buton-container">
+        <button class="btn-primary" [disabled]="profileForm.invalid">Submit</button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
@@ -28,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor, // Add your interceptor
       multi: true
-    }
+    },
+    DatePipe
   ]
 })
 export class ProductsModule { }

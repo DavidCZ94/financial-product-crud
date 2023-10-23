@@ -10,7 +10,7 @@
         [formControl]="searchControl">
     </div>
     <div>
-      <button class="btn-primary">Agregar</button>
+      <button (click)="reditectToProductRegistration()" class="btn-primary">Agregar</button>
     </div>
   </div>
 
@@ -30,8 +30,8 @@
             </td>
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
-            <td>{{ product.date_release }}</td>
-            <td>{{ product.date_revision }}</td>
+            <td>{{ product.date_release | date: 'MM/dd/yy' }}</td>
+            <td>{{ product.date_revision | date: 'MM/dd/yy' }}</td>
             <td class="table-body-actions">...</td>
           </tr>
         </tbody>

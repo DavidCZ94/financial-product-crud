@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { Product } from 'src/app/core/interfaces/product.interface';
 import { Pagination, TableConfig } from 'src/app/core/interfaces/table-config.interface';
@@ -19,7 +20,8 @@ export class ProductsListComponent {
   searchedProducts: Product[] = [];
 
   constructor(
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private router: Router
   ) {
     this.tableConfig = this.getTableConfig();
     this.configSearch();
@@ -99,6 +101,11 @@ export class ProductsListComponent {
     const totalItems = products.length; // or this.products.length for all products
     const pageSize = paginationConfig.pageSize;
     return Math.ceil(totalItems / pageSize);
+  }
+
+  reditectToProductRegistration(): void {
+    console.log(`🚀 ~ reditectToProductRegistration:`);
+    this.router.navigate(['/products/product-registration']);
   }
 
 }

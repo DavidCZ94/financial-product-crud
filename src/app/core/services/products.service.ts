@@ -15,4 +15,12 @@ export class ProductsService {
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
+
+  productIdExist(id: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/verification?id=${id}`);
+  }
+
+  createProduct(newProduct: any): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, newProduct);
+  }
 }
