@@ -5,13 +5,13 @@
     <form [formGroup]="profileForm" (ngSubmit)="submit()">
 
       <div>
-        <div [ngClass]="{'input-error': !profileForm.get('id')?.valid}" class="form-control">
+        <div [ngClass]="{'input-error': profileForm.get('id')?.invalid}" class="form-control">
           <label for="id">ID </label>
           <input
             id="id"
             type="text"
             formControlName="id">
-          <p>{{profileForm.get('id')?.valid ? '' : 'ID no valido'}}</p>
+          <p>{{profileForm.get('id')?.valid || this.productAction ? '' : 'ID no valido'}}</p>
         </div>
 
         <div [ngClass]="{'input-error': !profileForm.get('description')?.valid}"  class="form-control">

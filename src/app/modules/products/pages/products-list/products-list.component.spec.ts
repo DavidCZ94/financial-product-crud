@@ -6,6 +6,7 @@ import { ProductsService } from 'src/app/core/services/products.service';
 import { of } from 'rxjs';
 import { Product } from 'src/app/core/interfaces/product.interface';
 import { Router } from '@angular/router';
+import { DeleteConfirmationModalComponent } from '../components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 describe('ProductsListComponent', () => {
   let component: ProductsListComponent;
@@ -15,7 +16,7 @@ describe('ProductsListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ProductsListComponent],
+      declarations: [ProductsListComponent, DeleteConfirmationModalComponent],
       imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule],
       providers: [ ProductsService,  {
         provide: Router,
@@ -110,7 +111,7 @@ describe('ProductsListComponent', () => {
   });
 
   it('should navigate to product registration', () => {
-    component.reditectToProductRegistration();
+    component.reditectToProductRegistration(null);
 
     expect(router.navigate).toHaveBeenCalledWith(['/products/product-registration']);
   });

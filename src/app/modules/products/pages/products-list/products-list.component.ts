@@ -116,7 +116,8 @@ export class ProductsListComponent {
     return Math.ceil(totalItems / pageSize);
   }
 
-  reditectToProductRegistration(): void {
+  reditectToProductRegistration(product: Product | null): void {
+    this.productsService.setProductAction(product);
     this.router.navigate(['/products/product-registration']);
   }
 
@@ -144,7 +145,7 @@ export class ProductsListComponent {
   }
 
   editProduct(product: Product): void {
-    console.log(`🚀 ~ editProduct product:`, product);
+    this.reditectToProductRegistration(product);
   }
 
 }

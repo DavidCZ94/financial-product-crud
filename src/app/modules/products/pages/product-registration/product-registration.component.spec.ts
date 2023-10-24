@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 
 import { ProductRegistrationComponent } from './product-registration.component';
 import { ProductsService } from 'src/app/core/services/products.service';
@@ -10,6 +10,7 @@ describe('ProductRegistrationComponent', () => {
   let component: ProductRegistrationComponent;
   let fixture: ComponentFixture<ProductRegistrationComponent>;
   let datePipe: DatePipe;
+  let productsService: ProductsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,6 +21,7 @@ describe('ProductRegistrationComponent', () => {
     fixture = TestBed.createComponent(ProductRegistrationComponent);
     component = fixture.componentInstance;
     datePipe = TestBed.inject(DatePipe);
+    productsService = TestBed.inject(ProductsService);
     fixture.detectChanges();
   });
 
@@ -94,5 +96,21 @@ describe('ProductRegistrationComponent', () => {
     expect(component.profileForm.value.description).toEqual(null);
     expect(component.profileForm.value.logo).toEqual(null);
     expect(component.profileForm.value.date_release).toEqual(null);
+  });
+
+  it('initForm()', () => {
+    spyOn(productsService, 'getProductAction').and.returnValue({
+      id: 'exampleId',
+      name: 'Example Product',
+      description: 'This is an example product.',
+      logo: 'example-logo.png',
+      date_release: '2023-10-25',
+      date_revision: '2024-10-26'
+    });
+    component.initForm();
+
+    expect(component.profileForm.value.name).toEqual('Example Product');
+    expect(component.profileForm.value.description).toEqual('This is an example product.');
+    expect(component.profileForm.value.logo).toEqual('example-logo.png');
   });
 });

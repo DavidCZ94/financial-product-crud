@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
+import { Product } from 'src/app/core/interfaces/product.interface';
 import { ProductsService } from 'src/app/core/services/products.service';
 
 @Component({
@@ -23,19 +24,34 @@ export class ProductRegistrationComponent {
     description: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
     logo: new FormControl('', [Validators.required]),
     date_release: new FormControl('', [Validators.required, this.validateReleaseDate]),
-    date_revision: new FormControl(
-      { disabled: true, value: ''},
-      [Validators.required])
+    date_revision: new FormControl({ disabled: true, value: ''},[Validators.required])
   });
+  productAction!: Product | null;
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private datePipe: DatePipe
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.initForm();
     this.setRevisionDate();
+  }
+
+  initForm(): void {
+    this.productAction = this.productsService.getProductAction();
+    if (this.productAction) {
+      this.profileForm.get('id')?.setValue(this.productAction.id);
+      this.profileForm.get('id')?.clearAsyncValidators();
+      this.profileForm.get('id')?.updateValueAndValidity();
+      this.profileForm.get('id')?.disable();
+
+      this.profileForm.get('name')?.setValue(this.productAction.name);
+      this.profileForm.get('description')?.setValue(this.productAction.description);
+      this.profileForm.get('logo')?.setValue(this.productAction.logo);
+
+    }
   }
 
   setRevisionDate() {
@@ -76,6 +92,22 @@ export class ProductRegistrationComponent {
 
 
   submit() {
+    this.productAction ? this.updateProduct() : this.saveProduct();
+  }
+
+  updateProduct() {
+    this.profileForm.get('id')?.enable();
+    this.formatDateRevision()
+    this.productsService.updateProduct(this.profileForm.value).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.profileForm.reset();
+        this.router.navigate(['/products']);
+      }
+    });
+  }
+
+  formatDateRevision(){
     const aYearAfter = new Date(this.profileForm.get('date_release')?.value || '');
     aYearAfter.setFullYear(aYearAfter.getFullYear() + 1);
     aYearAfter.setDate(aYearAfter.getDate() + 1);
@@ -84,7 +116,10 @@ export class ProductRegistrationComponent {
     this.profileForm.get('date_revision')?.setValue(
       this.datePipe.transform(aYearAfter, 'yyyy-MM-dd')
     );
+  }
 
+  saveProduct() {
+    this.formatDateRevision();
     this.createProduct(this.profileForm.value);
     this.profileForm.get('date_revision')?.disable();
   }
