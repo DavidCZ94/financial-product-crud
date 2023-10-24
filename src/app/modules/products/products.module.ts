@@ -27,12 +27,12 @@ import { ErrorHandlerInterceptor } from '../../core/interceptors/error-handler.i
     ProductsService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor, // Add your interceptor
+      useClass: AuthInterceptor,
       multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor, // Add your interceptor
+      useClass: ErrorHandlerInterceptor,
       multi: true
     },
     DatePipe
