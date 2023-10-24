@@ -1,0 +1,48 @@
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  width: 350px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0px;
+}
+
+.hidden-modal {
+  display: none;
+}
+
+.action-buton-container{
+  width: 150px;
+}
+
+.action-buton-container button{
+  font-size: 0.7rem;
+}
+
+.separator-container{
+  margin-top: 25px;
+  margin-bottom: 0px;
+}

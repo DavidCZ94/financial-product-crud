@@ -8,7 +8,7 @@ import { ErrorModalComponent } from './components/error-modal/error-modal.compon
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
   ],
   imports: [
     BrowserModule,

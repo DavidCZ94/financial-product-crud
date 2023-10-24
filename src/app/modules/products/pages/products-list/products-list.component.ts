@@ -18,11 +18,24 @@ export class ProductsListComponent {
   pagedProducts: Product[] = [];
   searchControl = new FormControl('');
   searchedProducts: Product[] = [];
+  showDeleteConfimationModal = false;
+  productAction: Product = {
+    id: '',
+    name: '',
+    description: '',
+    logo: '',
+    date_release: '',
+    date_revision: ''
+  };
 
   constructor(
     private productsService: ProductsService,
     private router: Router
   ) {
+    this.initData();
+  }
+
+  initData(): void {
     this.tableConfig = this.getTableConfig();
     this.configSearch();
     this.getAllProducts();
@@ -105,6 +118,33 @@ export class ProductsListComponent {
 
   reditectToProductRegistration(): void {
     this.router.navigate(['/products/product-registration']);
+  }
+
+  onAction(action: 'edit' | 'delete', product: Product): void {
+    this.productAction = product;
+    if(action === 'delete') this.showDeleteConfirmation();
+    if(action === 'edit') this.editProduct(this.productAction);
+  }
+
+  cancel(): void {
+    this.showDeleteConfimationModal = false;
+  }
+
+  showDeleteConfirmation(): void {
+    this.showDeleteConfimationModal = true;
+  }
+
+  deleteProduct(): void {
+    this.showDeleteConfimationModal = false;
+    this.productsService.deleProduct(this.productAction.id).subscribe({
+      next: () => {
+        this.initData();
+      }
+    });
+  }
+
+  editProduct(product: Product): void {
+    console.log(`🚀 ~ editProduct product:`, product);
   }
 
 }

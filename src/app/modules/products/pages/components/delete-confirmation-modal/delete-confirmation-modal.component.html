@@ -1,0 +1,16 @@
+<div class="confirmation-modal" [ngClass]="{'hidden-modal': !showModal}">
+  <div class="modal-content">
+    <p>¿Estas seguro de eliminar el producto {{productTitle}}?</p>
+    <div class="separator-container">
+      <strong><hr></strong>
+    </div>
+    <div class="actions-container">
+      <div class="action-buton-container">
+        <button class="btn-secondary" (click)="confirm()">Confirmar</button>
+      </div>
+      <div class="action-buton-container">
+        <button class="btn-primary" (click)="cancel()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

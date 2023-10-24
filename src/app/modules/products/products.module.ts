@@ -9,19 +9,21 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '../../core/interceptors/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorHandlerInterceptor } from '../../core/interceptors/error-handler.interceptor';
+import { DeleteConfirmationModalComponent } from './pages/components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 
 @NgModule({
   declarations: [
     ProductsListComponent,
-    ProductRegistrationComponent
+    ProductRegistrationComponent,
+    DeleteConfirmationModalComponent
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     ProductsService,

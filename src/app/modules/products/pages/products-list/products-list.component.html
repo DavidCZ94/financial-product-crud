@@ -32,11 +32,20 @@
             <td>{{ product.description }}</td>
             <td>{{ product.date_release | date: 'MM/dd/yy' }}</td>
             <td>{{ product.date_revision | date: 'MM/dd/yy' }}</td>
-            <td class="table-body-actions">...</td>
+            <td class="table-body-actions">
+              <div class="dropdown">
+                <div class="actions-btn vertical"><strong>...</strong></div>
+                <div class="dropdown-content">
+                  <a class="btn-secondary" (click)="onAction('edit', product)">Editar</a>
+                  <a class="btn-secondary" (click)="onAction('delete', product)">Eliminar</a>
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+
     <div class="table-pagination">
       <p class="pagination-counter">
         {{pagedProducts.length || 0}} registros
@@ -67,3 +76,11 @@
     </div>
   </div>
 </div>
+
+<app-delete-confirmation-modal
+  [showModal]="showDeleteConfimationModal"
+  [productTitle]="productAction.name"
+  (onCancel)="cancel()"
+  (onConfirm)="deleteProduct()"
+  >
+</app-delete-confirmation-modal>

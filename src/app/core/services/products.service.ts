@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ProductsService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.productsApuUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -23,5 +23,9 @@ export class ProductsService {
 
   createProduct(newProduct: any): Observable<Product> {
     return this.http.post<Product>(this.apiUrl, newProduct);
+  }
+
+  deleProduct(id: string): Observable<Product> {
+    return this.http.delete<Product>(`${this.apiUrl}?id=${id}`);
   }
 }
