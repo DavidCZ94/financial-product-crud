@@ -14,6 +14,7 @@ import { ErrorModalComponent } from './components/error-modal/error-modal.compon
     BrowserModule,
     AppRoutingModule
   ],
+  exports: [ ErrorModalComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })

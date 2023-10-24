@@ -17,7 +17,7 @@ export class ErrorModalComponent {
 
   ngOnInit(): void {
     this.errorHandlerService.errorNotifier.subscribe({
-      next: (error) => {
+      next: () => {
         this.showModal = true;
       }
     });

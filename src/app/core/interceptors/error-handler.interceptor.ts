@@ -19,7 +19,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        this.errorHandlerService.trhowError(error);
+        this.errorHandlerService.throwError(error);
         return next.handle(request);
       })
     );
